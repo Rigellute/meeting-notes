@@ -6,3 +6,11 @@ let anchor: string => string = [%bs.raw
     }
 |}
 ];
+
+let urlToIssueNumber: string => string = [%bs.raw
+  {|
+    function (url) {
+      return url.replace(/\D/g,'');
+    }
+  |}
+];
