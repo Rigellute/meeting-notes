@@ -59,7 +59,7 @@ function make() {
                                           onChange: (function ($$event) {
                                               return Curry._1(self[/* send */3], /* Url */Block.__(1, [$$event.target.value]));
                                             })
-                                        }))), React.createElement("code", undefined, "[" + (self[/* state */1][/* title */0] + ("](" + (Curry._1(StringHelpers$ReactTemplate.anchor, self[/* state */1][/* title */0]) + (") [" + (Curry._1(StringHelpers$ReactTemplate.urlToIssueNumber, self[/* state */1][/* url */1]) + ("](" + (self[/* state */1][/* url */1] + ")"))))))))));
+                                        }))), React.createElement("code", undefined, StringHelpers$ReactTemplate.createTitle(self[/* state */1][/* title */0], self[/* state */1][/* url */1]))));
             }),
           /* initialState */(function () {
               return /* record */[

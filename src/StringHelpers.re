@@ -14,3 +14,13 @@ let urlToIssueNumber: string => string = [%bs.raw
     }
   |}
 ];
+
+let createTitle = (~title: string, ~url: string) => {
+  let anchored = anchor(title);
+  let issueNumber = urlToIssueNumber(url);
+
+  /* Interpolate the strings */
+  {j|
+  [$title]($anchored) [$issueNumber]($url)
+    |j};
+};

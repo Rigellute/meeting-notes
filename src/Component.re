@@ -71,19 +71,10 @@ let make = _children => {
         <code>
           {
             ReasonReact.string(
-              "["
-              ++ self.state.title
-              ++ "]"
-              ++ "("
-              ++ StringHelpers.anchor(self.state.title)
-              ++ ")"
-              ++ " "
-              ++ "["
-              ++ StringHelpers.urlToIssueNumber(self.state.url)
-              ++ "]"
-              ++ "("
-              ++ self.state.url
-              ++ ")",
+              StringHelpers.createTitle(
+                ~title=self.state.title,
+                ~url=self.state.url,
+              ),
             )
           }
         </code>
