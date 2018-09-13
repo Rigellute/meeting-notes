@@ -1,10 +1,3 @@
-module Topic = {
-  type topic = {
-    title: string,
-    url: string,
-    id: int,
-  };
-};
 /* State declaration */
 type state = {topics: list(Topic.topic)};
 
