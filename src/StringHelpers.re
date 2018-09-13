@@ -24,3 +24,16 @@ let createTitle = (~title: string, ~url: string) => {
   [$title]($anchored) [$issueNumber]($url)
     |j};
 };
+
+let mergeTitles = (topics: list(Topic.topic)) =>
+  List.map(
+    topic =>
+      <p key={string_of_int(Topic.(topic.id))}>
+        {
+          ReasonReact.string(
+            createTitle(~title=Topic.(topic.title), ~url=Topic.(topic.url)),
+          )
+        }
+      </p>,
+    topics,
+  );
