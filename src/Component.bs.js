@@ -10,8 +10,6 @@ var Random = require("bs-platform/lib/js/random.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
 var StringHelpers$ReactTemplate = require("./StringHelpers.bs.js");
 
-var Topic = /* module */[];
-
 var component = ReasonReact.reducerComponent("Example");
 
 function blankTopic() {
@@ -69,10 +67,7 @@ function make() {
                                             })
                                         })));
                     }), self[/* state */1][/* topics */0]);
-              var markdown = List.fold_left((function (a, b) {
-                      return a + ("\n" + StringHelpers$ReactTemplate.createTitle(b[/* title */0], b[/* url */1]));
-                    }), "", self[/* state */1][/* topics */0]);
-              console.log(self[/* state */1][/* topics */0]);
+              var titles = StringHelpers$ReactTemplate.mergeTitles(self[/* state */1][/* topics */0]);
               return React.createElement("div", undefined, React.createElement("section", {
                               className: "hero is-primary"
                             }, React.createElement("div", {
@@ -85,7 +80,7 @@ function make() {
                                           className: "subtitle"
                                         }, "Generate markdown")))), React.createElement("div", {
                               className: "container is-fluid"
-                            }, $$Array.of_list(topics), React.createElement("code", undefined, markdown), React.createElement("button", {
+                            }, $$Array.of_list(topics), React.createElement("p", undefined, "## Agenda"), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
                                   onClick: (function () {
                                       return Curry._1(self[/* send */3], /* Add */0);
                                     })
@@ -142,7 +137,6 @@ function make() {
         ];
 }
 
-exports.Topic = Topic;
 exports.component = component;
 exports.blankTopic = blankTopic;
 exports.make = make;

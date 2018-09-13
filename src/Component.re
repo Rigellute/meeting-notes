@@ -89,22 +89,8 @@ let make = _children => {
           </div>,
         self.state.topics,
       );
+    let titles = StringHelpers.mergeTitles(self.state.topics);
 
-    let markdown =
-      ReasonReact.string(
-        List.fold_left(
-          (a, b) =>
-            a
-            ++ "\n"
-            ++ StringHelpers.createTitle(
-                 ~title=Topic.(b.title),
-                 ~url=Topic.(b.url),
-               ),
-          "",
-          self.state.topics,
-        ),
-      );
-    Js.log(self.state.topics);
     <div>
       <section className="hero is-primary">
         <div className="hero-body">
@@ -120,7 +106,8 @@ let make = _children => {
       </section>
       <div className="container is-fluid">
         {ReasonReact.array(Array.of_list(topics))}
-        <code> markdown </code>
+        <p> {ReasonReact.string("## Agenda")} </p>
+        <div> {ReasonReact.array(Array.of_list(titles))} </div>
         <button onClick={_event => self.send(Add)}>
           {ReasonReact.string("Add new topic")}
         </button>
