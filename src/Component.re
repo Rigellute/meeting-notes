@@ -61,24 +61,43 @@ let make = _children => {
               type_="text"
               className="input"
               placeholder="URL"
-              value={self.state.url}
               onChange={
                 event =>
-                  self.send(Url(ReactEvent.Form.target(event)##value))
+                  self.send(Url(Topic.(topic.id), ReactEvent.Form.target(event)##value))
               }
             />
           </div>
+        </div>, self.state.topics);
+
+    let markdown = ReasonReact.string(
+                 List.fold_left((a, b) => a ++ "\n" ++ StringHelpers.createTitle(
+                    ~title=Topic.(b.title),
+                    ~url=Topic.(b.url),
+                  ), "", self.state.topics)
+                );
+   Js.log(self.state.topics); 
+    <div>
+      <section className="hero is-primary">
+        <div className="hero-body">
+          <div className="container">
+            <h1 className="title">
+              {ReasonReact.string("Meeting Minutes")}
+            </h1>
+            <h2 className="subtitle">
+              {ReasonReact.string("Generate markdown")}
+            </h2>
+          </div>
         </div>
+      </section>
+      <div className="container is-fluid">
+      (ReasonReact.array(Array.of_list(topics)))
         <code>
-          {
-            ReasonReact.string(
-              StringHelpers.createTitle(
-                ~title=self.state.title,
-                ~url=self.state.url,
-              ),
-            )
-          }
+                  
+                (markdown)
+              
         </code>
+        <button onClick=((_event) => self.send(Add))>(ReasonReact.string("Add new topic"))</button>
       </div>
-    </div>,
+    </div>
+  },
 };
