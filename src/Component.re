@@ -1,56 +1,57 @@
+module Topic = {
+    type topic = {
+        title: string,
+        url: string,
+        id: int,
+    }; 
+}
 /* State declaration */
 type state = {
-  title: string,
-  url: string,
+    topics: list(Topic.topic)
 };
 
 /* Action declaration */
 type action =
-  | Title(string)
-  | Url(string);
+  | Title(int, string)
+  | Url(int, string)
+  | Add;
 
 /* Component template declaration.
    Needs to be **after** state and action declarations! */
 let component = ReasonReact.reducerComponent("Example");
+
+let blankTopic = (): Topic.topic => {title: "", url: "", id: Random.int(10000)};
 
 /* greeting and children are props. `children` isn't used, therefore ignored.
    We ignore it by prepending it with an underscore */
 let make = _children => {
   /* spread the other default fields of component here and override a few */
   ...component,
-  initialState: () => {title: "", url: ""},
+  initialState: () => { topics: [blankTopic()]},
   /* State transitions */
   reducer: (action, state) =>
     switch (action) {
-    | Title(title) => ReasonReact.Update({...state, title})
-    | Url(url) => ReasonReact.Update({...state, url})
+    | Title(id, title) => 
+        let topics = List.map(t => Topic.(t.id) == id ? { ...t, Topic.title: title } : t, state.topics); 
+        ReasonReact.Update({...state, topics: topics });
+    | Url(id, url) => 
+        let topics = List.map(t => Topic.(t.id) == id ? { ...t, Topic.url: url } : t, state.topics); 
+        ReasonReact.Update({...state, topics: topics })
+    | Add => ReasonReact.Update({ ...state, topics: List.append([blankTopic()], state.topics)})
     },
-  render: self =>
-    <div>
-      <section className="hero is-primary">
-        <div className="hero-body">
-          <div className="container">
-            <h1 className="title">
-              {ReasonReact.string("Meeting Minutes")}
-            </h1>
-            <h2 className="subtitle">
-              {ReasonReact.string("Generate markdown")}
-            </h2>
-          </div>
-        </div>
-      </section>
-      <div className="container is-fluid">
-        <div className="columns">
+  render: self => {
+    let topics = List.map(topic => 
+        <div key=(string_of_int(Topic.(topic.id))) className="columns">
           <div className="column">
             <label className="label"> {ReasonReact.string("Title")} </label>
             <input
               type_="text"
               className="input"
               placeholder="Title"
-              value={self.state.title}
+              value={Topic.(topic.title)}
               onChange={
                 event =>
-                  self.send(Title(ReactEvent.Form.target(event)##value))
+                  self.send(Title(Topic.(topic.id), ReactEvent.Form.target(event)##value))
               }
             />
           </div>
