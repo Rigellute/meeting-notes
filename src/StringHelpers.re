@@ -31,9 +31,18 @@ let mergeTitles = (topics: list(Topic.topic)) =>
       <p key={string_of_int(Topic.(topic.id))}>
         {
           ReasonReact.string(
-            createTitle(~title=Topic.(topic.title), ~url=Topic.(topic.url)),
+            "1."
+            ++ createTitle(~title=Topic.(topic.title), ~url=Topic.(topic.url)),
           )
         }
       </p>,
     topics,
   );
+
+let constructDateString = (date: string) => {
+  let jsDate = Js.Date.fromString(date ++ "T00:0");
+  switch (Js.String.length(date)) {
+  | 0 => ""
+  | d when d > 0 => Js.Date.toDateString(jsDate)
+  };
+};
