@@ -66,8 +66,8 @@ function make() {
                                                           ]));
                                             })
                                         })));
-                    }), self[/* state */1][/* topics */0]);
-              var titles = StringHelpers$ReactTemplate.mergeTitles(self[/* state */1][/* topics */0]);
+                    }), self[/* state */1][/* topics */1]);
+              var titles = StringHelpers$ReactTemplate.mergeTitles(self[/* state */1][/* topics */1]);
               return React.createElement("div", undefined, React.createElement("section", {
                               className: "hero is-primary"
                             }, React.createElement("div", {
@@ -80,57 +80,88 @@ function make() {
                                           className: "subtitle"
                                         }, "Generate markdown")))), React.createElement("div", {
                               className: "container is-fluid"
-                            }, $$Array.of_list(topics), React.createElement("p", undefined, "## Agenda"), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
+                            }, React.createElement("label", {
+                                  className: "label"
+                                }, "Date"), React.createElement("input", {
+                                  className: "input",
+                                  type: "date",
+                                  value: self[/* state */1][/* date */0],
+                                  onChange: (function ($$event) {
+                                      return Curry._1(self[/* send */3], /* Date */Block.__(2, [$$event.target.value]));
+                                    })
+                                }), $$Array.of_list(topics), React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
+                                  className: "button is-primary",
                                   onClick: (function () {
                                       return Curry._1(self[/* send */3], /* Add */0);
                                     })
                                 }, "Add new topic")));
             }),
           /* initialState */(function () {
-              return /* record */[/* topics : :: */[
+              return /* record */[
+                      /* date */"",
+                      /* topics : :: */[
                         blankTopic(/* () */0),
                         /* [] */0
-                      ]];
+                      ]
+                    ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
               if (typeof action === "number") {
-                return /* Update */Block.__(0, [/* record */[/* topics */List.append(/* :: */[
+                return /* Update */Block.__(0, [/* record */[
+                            /* date */state[/* date */0],
+                            /* topics */List.append(/* :: */[
                                   blankTopic(/* () */0),
                                   /* [] */0
-                                ], state[/* topics */0])]]);
-              } else if (action.tag) {
-                var url = action[1];
-                var id = action[0];
-                var topics = List.map((function (t) {
-                        var match = t[/* id */2] === id;
-                        if (match) {
-                          return /* record */[
-                                  /* title */t[/* title */0],
-                                  /* url */url,
-                                  /* id */t[/* id */2]
-                                ];
-                        } else {
-                          return t;
-                        }
-                      }), state[/* topics */0]);
-                return /* Update */Block.__(0, [/* record */[/* topics */topics]]);
+                                ], state[/* topics */1])
+                          ]]);
               } else {
-                var title = action[1];
-                var id$1 = action[0];
-                var topics$1 = List.map((function (t) {
-                        var match = t[/* id */2] === id$1;
-                        if (match) {
-                          return /* record */[
-                                  /* title */title,
-                                  /* url */t[/* url */1],
-                                  /* id */t[/* id */2]
-                                ];
-                        } else {
-                          return t;
-                        }
-                      }), state[/* topics */0]);
-                return /* Update */Block.__(0, [/* record */[/* topics */topics$1]]);
+                switch (action.tag | 0) {
+                  case 0 : 
+                      var title = action[1];
+                      var id = action[0];
+                      var topics = List.map((function (t) {
+                              var match = t[/* id */2] === id;
+                              if (match) {
+                                return /* record */[
+                                        /* title */title,
+                                        /* url */t[/* url */1],
+                                        /* id */t[/* id */2]
+                                      ];
+                              } else {
+                                return t;
+                              }
+                            }), state[/* topics */1]);
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */state[/* date */0],
+                                  /* topics */topics
+                                ]]);
+                  case 1 : 
+                      var url = action[1];
+                      var id$1 = action[0];
+                      var topics$1 = List.map((function (t) {
+                              var match = t[/* id */2] === id$1;
+                              if (match) {
+                                return /* record */[
+                                        /* title */t[/* title */0],
+                                        /* url */url,
+                                        /* id */t[/* id */2]
+                                      ];
+                              } else {
+                                return t;
+                              }
+                            }), state[/* topics */1]);
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */state[/* date */0],
+                                  /* topics */topics$1
+                                ]]);
+                  case 2 : 
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */action[0],
+                                  /* topics */state[/* topics */1]
+                                ]]);
+                  
+                }
               }
             }),
           /* jsElementWrapped */component[/* jsElementWrapped */13]

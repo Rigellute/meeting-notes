@@ -4,6 +4,7 @@
 var List = require("bs-platform/lib/js/list.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
+var Caml_builtin_exceptions = require("bs-platform/lib/js/caml_builtin_exceptions.js");
 
 var anchor = (
     function (title) {
@@ -27,12 +28,34 @@ function mergeTitles(topics) {
   return List.map((function (topic) {
                 return React.createElement("p", {
                             key: String(topic[/* id */2])
-                          }, createTitle(topic[/* title */0], topic[/* url */1]));
+                          }, "1." + createTitle(topic[/* title */0], topic[/* url */1]));
               }), topics);
+}
+
+function constructDateString(date) {
+  var jsDate = new Date(date + "T00:0");
+  var d = date.length;
+  if (d !== 0) {
+    if (d > 0) {
+      return jsDate.toDateString();
+    } else {
+      throw [
+            Caml_builtin_exceptions.match_failure,
+            /* tuple */[
+              "StringHelpers.re",
+              43,
+              4
+            ]
+          ];
+    }
+  } else {
+    return "";
+  }
 }
 
 exports.anchor = anchor;
 exports.urlToIssueNumber = urlToIssueNumber;
 exports.createTitle = createTitle;
 exports.mergeTitles = mergeTitles;
+exports.constructDateString = constructDateString;
 /* anchor Not a pure module */
