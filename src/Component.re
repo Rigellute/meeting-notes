@@ -110,6 +110,7 @@ let make = _children => {
         </div>
       </section>
       <div className="container is-fluid">
+        <br />
         <label className="label"> {ReasonReact.string("Date")} </label>
         <input
           className="input"
@@ -119,6 +120,7 @@ let make = _children => {
           }
           value={self.state.date}
         />
+        <br />
         {ReasonReact.array(Array.of_list(topics))}
         <p> {ReasonReact.string("# Code Quality Meeting")} </p>
         <br />

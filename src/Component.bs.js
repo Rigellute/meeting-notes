@@ -80,7 +80,7 @@ function make() {
                                           className: "subtitle"
                                         }, "Generate markdown")))), React.createElement("div", {
                               className: "container is-fluid"
-                            }, React.createElement("label", {
+                            }, React.createElement("br", undefined), React.createElement("label", {
                                   className: "label"
                                 }, "Date"), React.createElement("input", {
                                   className: "input",
@@ -89,7 +89,7 @@ function make() {
                                   onChange: (function ($$event) {
                                       return Curry._1(self[/* send */3], /* Date */Block.__(2, [$$event.target.value]));
                                     })
-                                }), $$Array.of_list(topics), React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
+                                }), React.createElement("br", undefined), $$Array.of_list(topics), React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
                                   className: "button is-primary",
                                   onClick: (function () {
                                       return Curry._1(self[/* send */3], /* Add */0);
