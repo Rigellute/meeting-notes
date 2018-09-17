@@ -1,10 +1,14 @@
 /* State declaration */
-type state = {topics: list(Topic.topic)};
+type state = {
+  date: string,
+  topics: list(Topic.topic),
+};
 
 /* Action declaration */
 type action =
   | Title(int, string)
   | Url(int, string)
+  | Date(string)
   | Add;
 
 /* Component template declaration.
@@ -22,7 +26,7 @@ let blankTopic = (): Topic.topic => {
 let make = _children => {
   /* spread the other default fields of component here and override a few */
   ...component,
-  initialState: () => {topics: [blankTopic()]},
+  initialState: () => {date: "", topics: [blankTopic()]},
   /* State transitions */
   reducer: (action, state) =>
     switch (action) {
@@ -40,6 +44,7 @@ let make = _children => {
           state.topics,
         );
       ReasonReact.Update({...state, topics});
+    | Date(date) => ReasonReact.Update({...state, date})
     | Add =>
       ReasonReact.Update({
         ...state,
@@ -105,10 +110,31 @@ let make = _children => {
         </div>
       </section>
       <div className="container is-fluid">
+        <label className="label"> {ReasonReact.string("Date")} </label>
+        <input
+          className="input"
+          type_="date"
+          onChange={
+            event => self.send(Date(ReactEvent.Form.target(event)##value))
+          }
+          value={self.state.date}
+        />
         {ReasonReact.array(Array.of_list(topics))}
+        <p> {ReasonReact.string("# Code Quality Meeting")} </p>
+        <br />
+        <p>
+          {
+            ReasonReact.string(
+              StringHelpers.constructDateString(self.state.date),
+            )
+          }
+        </p>
+        <br />
         <p> {ReasonReact.string("## Agenda")} </p>
+        <br />
         <div> {ReasonReact.array(Array.of_list(titles))} </div>
-        <button onClick={_event => self.send(Add)}>
+        <button
+          onClick={_event => self.send(Add)} className="button is-primary">
           {ReasonReact.string("Add new topic")}
         </button>
       </div>
