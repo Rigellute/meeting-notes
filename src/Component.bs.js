@@ -16,7 +16,12 @@ function blankTopic() {
   return /* record */[
           /* title */"",
           /* url */"",
-          /* id */Random.$$int(10000)
+          /* id */Random.$$int(10000),
+          /* notes */"",
+          /* actions : :: */[
+            "",
+            /* [] */0
+          ]
         ];
 }
 
@@ -34,38 +39,85 @@ function make() {
           /* render */(function (self) {
               var topics = List.map((function (topic) {
                       return React.createElement("div", {
-                                  key: String(topic[/* id */2]),
-                                  className: "columns"
+                                  className: "field"
                                 }, React.createElement("div", {
-                                      className: "column"
-                                    }, React.createElement("label", {
-                                          className: "label"
-                                        }, "Title"), React.createElement("input", {
-                                          className: "input",
-                                          placeholder: "Title",
-                                          type: "text",
-                                          value: topic[/* title */0],
-                                          onChange: (function ($$event) {
-                                              return Curry._1(self[/* send */3], /* Title */Block.__(0, [
-                                                            topic[/* id */2],
-                                                            $$event.target.value
-                                                          ]));
-                                            })
-                                        })), React.createElement("div", {
-                                      className: "column"
-                                    }, React.createElement("label", {
-                                          className: "label"
-                                        }, "URL"), React.createElement("input", {
-                                          className: "input",
-                                          placeholder: "URL",
-                                          type: "text",
-                                          onChange: (function ($$event) {
-                                              return Curry._1(self[/* send */3], /* Url */Block.__(1, [
-                                                            topic[/* id */2],
-                                                            $$event.target.value
-                                                          ]));
-                                            })
-                                        })));
+                                      className: "field"
+                                    }, React.createElement("div", {
+                                          key: String(topic[/* id */2]),
+                                          className: "columns"
+                                        }, React.createElement("div", {
+                                              className: "column"
+                                            }, React.createElement("label", {
+                                                  className: "label"
+                                                }, "Title"), React.createElement("input", {
+                                                  className: "input",
+                                                  placeholder: "Title",
+                                                  type: "text",
+                                                  value: topic[/* title */0],
+                                                  onChange: (function ($$event) {
+                                                      return Curry._1(self[/* send */3], /* Title */Block.__(0, [
+                                                                    topic[/* id */2],
+                                                                    $$event.target.value
+                                                                  ]));
+                                                    })
+                                                })), React.createElement("div", {
+                                              className: "column"
+                                            }, React.createElement("label", {
+                                                  className: "label"
+                                                }, "URL"), React.createElement("input", {
+                                                  className: "input",
+                                                  placeholder: "URL",
+                                                  type: "text",
+                                                  value: topic[/* url */1],
+                                                  onChange: (function ($$event) {
+                                                      return Curry._1(self[/* send */3], /* Url */Block.__(1, [
+                                                                    topic[/* id */2],
+                                                                    $$event.target.value
+                                                                  ]));
+                                                    })
+                                                }))), React.createElement("div", {
+                                          className: "columns"
+                                        }, React.createElement("div", {
+                                              className: "column"
+                                            }, React.createElement("label", {
+                                                  className: "label"
+                                                }, "Notes"), React.createElement("textarea", {
+                                                  className: "textarea",
+                                                  placeholder: "Type notes here",
+                                                  value: topic[/* notes */3],
+                                                  onChange: (function ($$event) {
+                                                      return Curry._1(self[/* send */3], /* UpdateNotes */Block.__(2, [
+                                                                    topic[/* id */2],
+                                                                    $$event.target.value
+                                                                  ]));
+                                                    })
+                                                })), React.createElement("div", {
+                                              className: "column"
+                                            }, React.createElement("label", {
+                                                  className: "label"
+                                                }, "Actions"), $$Array.of_list(List.mapi((function (index, action) {
+                                                        return React.createElement("p", {
+                                                                    className: "field"
+                                                                  }, React.createElement("input", {
+                                                                        key: String(index),
+                                                                        className: "input",
+                                                                        placeholder: "Action",
+                                                                        type: "text",
+                                                                        value: action,
+                                                                        onChange: (function ($$event) {
+                                                                            return Curry._1(self[/* send */3], /* NewAction */Block.__(4, [
+                                                                                          topic[/* id */2],
+                                                                                          index,
+                                                                                          $$event.target.value
+                                                                                        ]));
+                                                                          })
+                                                                      }));
+                                                      }), topic[/* actions */4])), React.createElement("button", {
+                                                  className: "button is-primary",
+                                                  onClick: (function () {
+                                                      return Curry._1(self[/* send */3], /* AddEmptyAction */Block.__(5, [topic[/* id */2]]));
+                                                    })
+                                                }, "Add Action")))));
                     }), self[/* state */1][/* topics */1]);
               var titles = StringHelpers$ReactTemplate.mergeTitles(self[/* state */1][/* topics */1]);
               return React.createElement("div", undefined, React.createElement("section", {
@@ -83,18 +135,46 @@ function make() {
                             }, React.createElement("br", undefined), React.createElement("label", {
                                   className: "label"
                                 }, "Date"), React.createElement("input", {
-                                  className: "input",
+                                  className: "input field",
                                   type: "date",
                                   value: self[/* state */1][/* date */0],
                                   onChange: (function ($$event) {
-                                      return Curry._1(self[/* send */3], /* Date */Block.__(2, [$$event.target.value]));
+                                      return Curry._1(self[/* send */3], /* Date */Block.__(3, [$$event.target.value]));
                                     })
-                                }), React.createElement("br", undefined), $$Array.of_list(topics), React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("button", {
+                                }), React.createElement("h1", {
+                                  className: "title"
+                                }, "Topics"), $$Array.of_list(topics), React.createElement("button", {
                                   className: "button is-primary",
                                   onClick: (function () {
                                       return Curry._1(self[/* send */3], /* Add */0);
                                     })
-                                }, "Add new topic")));
+                                }, "Add new topic"), React.createElement("section", {
+                                  className: "field"
+                                }, React.createElement("hr", {
+                                      className: "hr"
+                                    }), React.createElement("h1", {
+                                      className: "title"
+                                    }, "Markdown"), React.createElement("div", {
+                                      className: "box has-background-light"
+                                    }, React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("br", undefined), React.createElement("p", undefined, "## Discussion"), React.createElement("br", undefined), React.createElement("p", undefined, "## Actions Overview"), React.createElement("br", undefined), $$Array.of_list(List.mapi((function (index, action) {
+                                                return React.createElement("p", {
+                                                            key: String(index)
+                                                          }, "- " + action);
+                                              }), List.concat(List.map((function (topic) {
+                                                        return topic[/* actions */4];
+                                                      }), self[/* state */1][/* topics */1])))), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(List.map((function (topic) {
+                                                    return React.createElement("div", {
+                                                                key: String(topic[/* id */2])
+                                                              }, React.createElement("p", undefined, "### " + topic[/* title */0]), React.createElement("p", {
+                                                                    style: {
+                                                                      whiteSpace: "pre-wrap"
+                                                                    }
+                                                                  }, topic[/* notes */3]), React.createElement("br", undefined), $$Array.of_list(List.mapi((function (index, action) {
+                                                                          return React.createElement("p", {
+                                                                                      key: String(index)
+                                                                                    }, "- " + action);
+                                                                        }), topic[/* actions */4])), React.createElement("br", undefined));
+                                                  }), self[/* state */1][/* topics */1])))))));
             }),
           /* initialState */(function () {
               return /* record */[
@@ -110,7 +190,7 @@ function make() {
               if (typeof action === "number") {
                 return /* Update */Block.__(0, [/* record */[
                             /* date */state[/* date */0],
-                            /* topics */List.append(/* :: */[
+                            /* topics */List.rev_append(/* :: */[
                                   blankTopic(/* () */0),
                                   /* [] */0
                                 ], state[/* topics */1])
@@ -126,7 +206,9 @@ function make() {
                                 return /* record */[
                                         /* title */title,
                                         /* url */t[/* url */1],
-                                        /* id */t[/* id */2]
+                                        /* id */t[/* id */2],
+                                        /* notes */t[/* notes */3],
+                                        /* actions */t[/* actions */4]
                                       ];
                               } else {
                                 return t;
@@ -145,7 +227,9 @@ function make() {
                                 return /* record */[
                                         /* title */t[/* title */0],
                                         /* url */url,
-                                        /* id */t[/* id */2]
+                                        /* id */t[/* id */2],
+                                        /* notes */t[/* notes */3],
+                                        /* actions */t[/* actions */4]
                                       ];
                               } else {
                                 return t;
@@ -156,9 +240,82 @@ function make() {
                                   /* topics */topics$1
                                 ]]);
                   case 2 : 
+                      var notes = action[1];
+                      var id$2 = action[0];
+                      var topics$2 = List.map((function (t) {
+                              var match = t[/* id */2] === id$2;
+                              if (match) {
+                                return /* record */[
+                                        /* title */t[/* title */0],
+                                        /* url */t[/* url */1],
+                                        /* id */t[/* id */2],
+                                        /* notes */notes,
+                                        /* actions */t[/* actions */4]
+                                      ];
+                              } else {
+                                return t;
+                              }
+                            }), state[/* topics */1]);
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */state[/* date */0],
+                                  /* topics */topics$2
+                                ]]);
+                  case 3 : 
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */action[0],
                                   /* topics */state[/* topics */1]
+                                ]]);
+                  case 4 : 
+                      var action$1 = action[2];
+                      var index = action[1];
+                      var id$3 = action[0];
+                      var topics$3 = List.map((function (t) {
+                              var match = t[/* id */2] === id$3;
+                              if (match) {
+                                return /* record */[
+                                        /* title */t[/* title */0],
+                                        /* url */t[/* url */1],
+                                        /* id */t[/* id */2],
+                                        /* notes */t[/* notes */3],
+                                        /* actions */List.mapi((function (i, a) {
+                                                var match = index === i;
+                                                if (match) {
+                                                  return action$1;
+                                                } else {
+                                                  return a;
+                                                }
+                                              }), t[/* actions */4])
+                                      ];
+                              } else {
+                                return t;
+                              }
+                            }), state[/* topics */1]);
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */state[/* date */0],
+                                  /* topics */topics$3
+                                ]]);
+                  case 5 : 
+                      var id$4 = action[0];
+                      var topics$4 = List.map((function (t) {
+                              var match = t[/* id */2] === id$4;
+                              if (match) {
+                                return /* record */[
+                                        /* title */t[/* title */0],
+                                        /* url */t[/* url */1],
+                                        /* id */t[/* id */2],
+                                        /* notes */t[/* notes */3],
+                                        /* actions */List.rev_append(t[/* actions */4], /* :: */[
+                                              "",
+                                              /* [] */0
+                                            ])
+                                      ];
+                              } else {
+                                return t;
+                              }
+                            }), state[/* topics */1]);
+                      return /* Update */Block.__(0, [/* record */[
+                                  /* date */state[/* date */0],
+                                  /* topics */topics$4
                                 ]]);
                   
                 }
