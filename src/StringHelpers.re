@@ -43,6 +43,6 @@ let constructDateString = (date: string) => {
   let jsDate = Js.Date.fromString(date ++ "T00:0");
   switch (Js.String.length(date)) {
   | 0 => ""
-  | d when d > 0 => Js.Date.toDateString(jsDate)
+  | _ => Js.Date.toDateString(jsDate)
   };
 };
