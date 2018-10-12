@@ -99,13 +99,13 @@ let make = _children => {
 
       ReasonReact.Update({...state, topics});
     | CopyMarkdownToClipboard =>
-/* TODO: copy the markdown to clipboard */
+      /* TODO: copy the markdown to clipboard */
       /* let ref = */
       /*   switch (state.markdownRef^) { */
       /*   | None => "" */
-      /*   | Some(r) => r.innerText */        
+      /*   | Some(r) => r.innerText */
       /*   }; */
-ReasonReact.NoUpdate;
+      ReasonReact.NoUpdate
     },
   render: self => {
     let topics =
