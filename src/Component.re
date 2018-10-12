@@ -2,6 +2,7 @@
 type state = {
   date: string,
   topics: list(Topic.topic),
+  markdownRef: ref(option(Dom.element)),
 };
 
 /* Action declaration */
@@ -12,8 +13,11 @@ type action =
   | Date(string)
   | NewAction(int, int, string)
   | AddEmptyAction(int)
+  | CopyMarkdownToClipboard
   | Add;
 
+let setMarkdownRef = (theRef, {ReasonReact.state}) =>
+  state.markdownRef := Js.Nullable.toOption(theRef);
 /* Component template declaration.
    Needs to be **after** state and action declarations! */
 let component = ReasonReact.reducerComponent("Example");
@@ -26,12 +30,16 @@ let blankTopic = (): Topic.topic => {
   actions: [""],
 };
 
-/* greeting and children are props. `children` isn't used, therefore ignored.
+/* `children` isn't used, therefore ignored.
    We ignore it by prepending it with an underscore */
 let make = _children => {
   /* spread the other default fields of component here and override a few */
   ...component,
-  initialState: () => {date: "", topics: [blankTopic()]},
+  initialState: () => {
+    date: "",
+    topics: [blankTopic()],
+    markdownRef: ref(None),
+  },
   /* State transitions */
   reducer: (action, state) =>
     switch (action) {
@@ -90,6 +98,14 @@ let make = _children => {
         );
 
       ReasonReact.Update({...state, topics});
+    | CopyMarkdownToClipboard =>
+/* TODO: copy the markdown to clipboard */
+      /* let ref = */
+      /*   switch (state.markdownRef^) { */
+      /*   | None => "" */
+      /*   | Some(r) => r.innerText */        
+      /*   }; */
+ReasonReact.NoUpdate;
     },
   render: self => {
     let topics =
@@ -238,7 +254,14 @@ let make = _children => {
         <section className="field">
           <hr className="hr" />
           <h1 className="title"> {ReasonReact.string("Markdown")} </h1>
-          <div className="box has-background-light">
+          <button
+            onClick={_event => self.send(CopyMarkdownToClipboard)}
+            className="button is-primary">
+            {ReasonReact.string("Copy to clipboard")}
+          </button>
+          <div
+            className="box has-background-light"
+            ref={self.handle(setMarkdownRef)}>
             <p> {ReasonReact.string("# Code Quality Meeting")} </p>
             <br />
             <p>

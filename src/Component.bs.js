@@ -8,7 +8,13 @@ var Curry = require("bs-platform/lib/js/curry.js");
 var React = require("react");
 var Random = require("bs-platform/lib/js/random.js");
 var ReasonReact = require("reason-react/src/ReasonReact.js");
+var Js_primitive = require("bs-platform/lib/js/js_primitive.js");
 var StringHelpers$ReactTemplate = require("./StringHelpers.bs.js");
+
+function setMarkdownRef(theRef, param) {
+  param[/* state */1][/* markdownRef */2][0] = (theRef == null) ? undefined : Js_primitive.some(theRef);
+  return /* () */0;
+}
 
 var component = ReasonReact.reducerComponent("Example");
 
@@ -146,7 +152,7 @@ function make() {
                                 }, "Topics"), $$Array.of_list(topics), React.createElement("button", {
                                   className: "button is-primary",
                                   onClick: (function () {
-                                      return Curry._1(self[/* send */3], /* Add */0);
+                                      return Curry._1(self[/* send */3], /* Add */1);
                                     })
                                 }, "Add new topic"), React.createElement("section", {
                                   className: "field"
@@ -154,7 +160,13 @@ function make() {
                                       className: "hr"
                                     }), React.createElement("h1", {
                                       className: "title"
-                                    }, "Markdown"), React.createElement("div", {
+                                    }, "Markdown"), React.createElement("button", {
+                                      className: "button is-primary",
+                                      onClick: (function () {
+                                          return Curry._1(self[/* send */3], /* CopyMarkdownToClipboard */0);
+                                        })
+                                    }, "Copy to clipboard"), React.createElement("div", {
+                                      ref: Curry._1(self[/* handle */0], setMarkdownRef),
                                       className: "box has-background-light"
                                     }, React.createElement("p", undefined, "# Code Quality Meeting"), React.createElement("br", undefined), React.createElement("p", undefined, StringHelpers$ReactTemplate.constructDateString(self[/* state */1][/* date */0])), React.createElement("br", undefined), React.createElement("p", undefined, "## Agenda"), React.createElement("br", undefined), React.createElement("div", undefined, $$Array.of_list(titles)), React.createElement("br", undefined), React.createElement("p", undefined, "## Discussion"), React.createElement("br", undefined), React.createElement("p", undefined, "## Actions Overview"), React.createElement("br", undefined), $$Array.of_list(List.mapi((function (index, action) {
                                                 return React.createElement("p", {
@@ -182,19 +194,25 @@ function make() {
                       /* topics : :: */[
                         blankTopic(/* () */0),
                         /* [] */0
-                      ]
+                      ],
+                      /* markdownRef : record */[/* contents */undefined]
                     ];
             }),
           /* retainedProps */component[/* retainedProps */11],
           /* reducer */(function (action, state) {
               if (typeof action === "number") {
-                return /* Update */Block.__(0, [/* record */[
-                            /* date */state[/* date */0],
-                            /* topics */List.rev_append(/* :: */[
-                                  blankTopic(/* () */0),
-                                  /* [] */0
-                                ], state[/* topics */1])
-                          ]]);
+                if (action === 0) {
+                  return /* NoUpdate */0;
+                } else {
+                  return /* Update */Block.__(0, [/* record */[
+                              /* date */state[/* date */0],
+                              /* topics */List.rev_append(/* :: */[
+                                    blankTopic(/* () */0),
+                                    /* [] */0
+                                  ], state[/* topics */1]),
+                              /* markdownRef */state[/* markdownRef */2]
+                            ]]);
+                }
               } else {
                 switch (action.tag | 0) {
                   case 0 : 
@@ -216,7 +234,8 @@ function make() {
                             }), state[/* topics */1]);
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */state[/* date */0],
-                                  /* topics */topics
+                                  /* topics */topics,
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   case 1 : 
                       var url = action[1];
@@ -237,7 +256,8 @@ function make() {
                             }), state[/* topics */1]);
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */state[/* date */0],
-                                  /* topics */topics$1
+                                  /* topics */topics$1,
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   case 2 : 
                       var notes = action[1];
@@ -258,12 +278,14 @@ function make() {
                             }), state[/* topics */1]);
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */state[/* date */0],
-                                  /* topics */topics$2
+                                  /* topics */topics$2,
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   case 3 : 
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */action[0],
-                                  /* topics */state[/* topics */1]
+                                  /* topics */state[/* topics */1],
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   case 4 : 
                       var action$1 = action[2];
@@ -292,7 +314,8 @@ function make() {
                             }), state[/* topics */1]);
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */state[/* date */0],
-                                  /* topics */topics$3
+                                  /* topics */topics$3,
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   case 5 : 
                       var id$4 = action[0];
@@ -315,7 +338,8 @@ function make() {
                             }), state[/* topics */1]);
                       return /* Update */Block.__(0, [/* record */[
                                   /* date */state[/* date */0],
-                                  /* topics */topics$4
+                                  /* topics */topics$4,
+                                  /* markdownRef */state[/* markdownRef */2]
                                 ]]);
                   
                 }
@@ -325,6 +349,7 @@ function make() {
         ];
 }
 
+exports.setMarkdownRef = setMarkdownRef;
 exports.component = component;
 exports.blankTopic = blankTopic;
 exports.make = make;
