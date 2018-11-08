@@ -28,3 +28,10 @@ This will replace the development artifact `build/Index.js` for an optimized ver
 ```sh
 yarn deploy
 ```
+
+## TODO
+- [ ] Add link back to this repo on the webpage
+- [ ] Complete the `copy to clipboard` functionality
+- [ ] Reorder the form inputs so `url` comes first
+- [ ] Make new topics appear at the end of the list, not at the front - use `List.rev_append`
+- [ ] Add `#### Actions` title to topic actions list
