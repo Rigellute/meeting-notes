@@ -25,13 +25,16 @@ This will replace the development artifact `build/Index.js` for an optimized ver
 **To enable dead code elimination**, change `bsconfig.json`'s `package-specs` `module` from `"commonjs"` to `"es6"`. Then re-run the above 2 commands. This will allow Webpack to remove unused code.
 
 ## Deploy to gh-pages
+
 ```sh
 yarn deploy
 ```
 
 ## TODO
-- [ ] Add link back to this repo on the webpage
+
+- [x] Add link back to this repo on the webpage
 - [ ] Complete the `copy to clipboard` functionality
-- [ ] Reorder the form inputs so `url` comes first
-- [ ] Make new topics appear at the end of the list, not at the front - use `List.rev_append`
-- [ ] Add `#### Actions` title to topic actions list
+- [x] Reorder the form inputs so `url` comes first
+- [x] Make new `topics` appear at the end of the list, not at the front
+- [x] Make new `actions` appear at the end of the list, not at the front
+- [x] Add `#### Actions` title to topic actions list

@@ -68,7 +68,7 @@ let make = _children => {
     | Add =>
       ReasonReact.Update({
         ...state,
-        topics: List.rev_append([blankTopic()], state.topics),
+        topics: List.append(state.topics, [blankTopic()]),
       })
     | NewAction(id, index, action) =>
       let topics =
@@ -93,7 +93,7 @@ let make = _children => {
         List.map(
           t =>
             Topic.(t.id) == id ?
-              {...t, actions: List.rev_append(Topic.(t.actions), [""])} : t,
+              {...t, actions: List.append(Topic.(t.actions), [""])} : t,
           state.topics,
         );
 
@@ -116,26 +116,6 @@ let make = _children => {
               <div key={string_of_int(Topic.(topic.id))} className="columns">
                 <div className="column">
                   <label className="label">
-                    {ReasonReact.string("Title")}
-                  </label>
-                  <input
-                    type_="text"
-                    className="input"
-                    placeholder="Title"
-                    value=Topic.(topic.title)
-                    onChange={
-                      event =>
-                        self.send(
-                          Title(
-                            Topic.(topic.id),
-                            ReactEvent.Form.target(event)##value,
-                          ),
-                        )
-                    }
-                  />
-                </div>
-                <div className="column">
-                  <label className="label">
                     {ReasonReact.string("URL")}
                   </label>
                   <input
@@ -147,6 +127,26 @@ let make = _children => {
                       event =>
                         self.send(
                           Url(
+                            Topic.(topic.id),
+                            ReactEvent.Form.target(event)##value,
+                          ),
+                        )
+                    }
+                  />
+                </div>
+                <div className="column">
+                  <label className="label">
+                    {ReasonReact.string("Title")}
+                  </label>
+                  <input
+                    type_="text"
+                    className="input"
+                    placeholder="Title"
+                    value=Topic.(topic.title)
+                    onChange={
+                      event =>
+                        self.send(
+                          Title(
                             Topic.(topic.id),
                             ReactEvent.Form.target(event)##value,
                           ),
@@ -307,6 +307,7 @@ let make = _children => {
                         {ReasonReact.string(Topic.(topic.notes))}
                       </p>
                       <br />
+                      <p> {ReasonReact.string("#### Actions")} </p>
                       {
                         List.mapi(
                           (index, action) =>
@@ -329,6 +330,9 @@ let make = _children => {
           </div>
         </section>
       </div>
+      <a href="https://github.com/Rigellute/meeting-notes" target="_blank">
+        {ReasonReact.string("Github repo")}
+      </a>
     </div>;
   },
 };

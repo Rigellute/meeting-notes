@@ -54,13 +54,13 @@ function make() {
                                               className: "column"
                                             }, React.createElement("label", {
                                                   className: "label"
-                                                }, "Title"), React.createElement("input", {
+                                                }, "URL"), React.createElement("input", {
                                                   className: "input",
-                                                  placeholder: "Title",
+                                                  placeholder: "URL",
                                                   type: "text",
-                                                  value: topic[/* title */0],
+                                                  value: topic[/* url */1],
                                                   onChange: (function ($$event) {
-                                                      return Curry._1(self[/* send */3], /* Title */Block.__(0, [
+                                                      return Curry._1(self[/* send */3], /* Url */Block.__(1, [
                                                                     topic[/* id */2],
                                                                     $$event.target.value
                                                                   ]));
@@ -69,13 +69,13 @@ function make() {
                                               className: "column"
                                             }, React.createElement("label", {
                                                   className: "label"
-                                                }, "URL"), React.createElement("input", {
+                                                }, "Title"), React.createElement("input", {
                                                   className: "input",
-                                                  placeholder: "URL",
+                                                  placeholder: "Title",
                                                   type: "text",
-                                                  value: topic[/* url */1],
+                                                  value: topic[/* title */0],
                                                   onChange: (function ($$event) {
-                                                      return Curry._1(self[/* send */3], /* Url */Block.__(1, [
+                                                      return Curry._1(self[/* send */3], /* Title */Block.__(0, [
                                                                     topic[/* id */2],
                                                                     $$event.target.value
                                                                   ]));
@@ -180,12 +180,15 @@ function make() {
                                                                     style: {
                                                                       whiteSpace: "pre-wrap"
                                                                     }
-                                                                  }, topic[/* notes */3]), React.createElement("br", undefined), $$Array.of_list(List.mapi((function (index, action) {
+                                                                  }, topic[/* notes */3]), React.createElement("br", undefined), React.createElement("p", undefined, "#### Actions"), $$Array.of_list(List.mapi((function (index, action) {
                                                                           return React.createElement("p", {
                                                                                       key: String(index)
                                                                                     }, "- " + action);
                                                                         }), topic[/* actions */4])), React.createElement("br", undefined));
-                                                  }), self[/* state */1][/* topics */1])))))));
+                                                  }), self[/* state */1][/* topics */1])))))), React.createElement("a", {
+                              href: "https://github.com/Rigellute/meeting-notes",
+                              target: "_blank"
+                            }, "Github repo"));
             }),
           /* initialState */(function () {
               return /* record */[
@@ -205,10 +208,10 @@ function make() {
                 } else {
                   return /* Update */Block.__(0, [/* record */[
                               /* date */state[/* date */0],
-                              /* topics */List.rev_append(/* :: */[
+                              /* topics */List.append(state[/* topics */1], /* :: */[
                                     blankTopic(/* () */0),
                                     /* [] */0
-                                  ], state[/* topics */1]),
+                                  ]),
                               /* markdownRef */state[/* markdownRef */2]
                             ]]);
                 }
@@ -326,7 +329,7 @@ function make() {
                                         /* url */t[/* url */1],
                                         /* id */t[/* id */2],
                                         /* notes */t[/* notes */3],
-                                        /* actions */List.rev_append(t[/* actions */4], /* :: */[
+                                        /* actions */List.append(t[/* actions */4], /* :: */[
                                               "",
                                               /* [] */0
                                             ])
