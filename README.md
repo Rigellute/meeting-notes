@@ -38,3 +38,5 @@ yarn deploy
 - [x] Make new `topics` appear at the end of the list, not at the front
 - [x] Make new `actions` appear at the end of the list, not at the front
 - [x] Add `#### Actions` title to topic actions list
+- [ ] Add a way of removing topics
+- [ ] Add a way of removing actions
